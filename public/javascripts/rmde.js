@@ -1,18 +1,21 @@
 $(document).ready(function () {
-    mde.init()
+    rmde.init();
 });
 
-var mde =
+var rmde =
 {
     banana: "mmmmmmm yellow",
 
-    init: function () {
+    init: function ()
+    {
         $('#markdown').bind('input propertychange', this.parseAndUpdate)
+        console.log("bound");
     },
 
-    parseAndUpdate: function () {
-        console.log("parseAndUpdate was called");
-
+    parseAndUpdate: function ()
+    {
+        console.log("parseAndUpdate called");
+        
         var $this = $('#markdown');
 
         var $html = $("#html");
@@ -49,7 +52,8 @@ var mde =
             appendToHTML(output)
         }
 
-        function appendToHTML(data) {
+        function appendToHTML(data)
+        {
             $field = $('#html');
             $existing = $field.html();
 
