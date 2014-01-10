@@ -26,6 +26,8 @@ var rmde =
 
         var lines = input.split('\n');
 
+        var finalHTML = [];
+        
         for (var i = 0; i < lines.length; i++)
         {
             var line = lines[i];
@@ -37,22 +39,52 @@ var rmde =
             {
                 if (Object.prototype.hasOwnProperty.call(tags.headings, tag))
                 {
+                    // TODO http://img.ctrlv.in/img/52d06e49df541.jpg
                     if (line.substring(0, tags.headings[tag].length) === tags.headings[tag])
                     {
-                        output = '<' + tag + '>' + line.substring(tags.headings[tag].length) + '</' + tag + '>';
+                        if (output === -1)
+                        {
+                            output = "";
+                        }
+                        
+                        output += '<' + tag + '>' + line.substring(tags.headings[tag].length) + '</' + tag + '>';
                     }
                 }
             }
-
+            
+            // Ordered list
+            if (tags.lists.ordered.test(line))
+            {
+                var htmlAsArrayString = completeHTML.toString();
+                
+                // The current list has already been started, but not closed -- TODO: just add an element.
+                if (htmlAsArrayString.lastIndexOf('<ol>') > htmlAsArrayString.lastIndexOf('</ol'))
+                {
+                    
+                }
+            }
+                
+            // didn't match anything, so it's a regular paragraph
             if (output === -1)
             {
-                output = line;
+                // TODO: Lines below one another are printed as separate paragraphs.     
+                output = '<p>' + line + '</p>';
             }
-
-            appendToHTML(output)
+            
+            finalHTML.push(output);
+            console.log(finalHTML);
         }
+        
+        var htmlToDisplay = "";
+        for (var i = 0; i < finalHTML.length; i++)
+        {
+            var line = finalHTML[i];
+            htmlToDisplay += line;
+        }
+        
+        updateHTML(htmlToDisplay);
 
-        function appendToHTML(data)
+        function updateHTML(data)
         {
             $field = $('#html');
             $existing = $field.html();
