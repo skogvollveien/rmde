@@ -10,6 +10,6 @@ var tags =
     },
 
     lists: {
-        li: '*'
+        unordered: '(*|+|-)'
     }
 };
