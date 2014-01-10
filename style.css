@@ -1,0 +1,17 @@
+body
+{
+	background-color: #fdd;
+}
+
+div#wrapper
+{
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+}
+
+textarea
+{
+	height: 50em;
+	width: 45%;
+}
