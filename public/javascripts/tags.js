@@ -8,8 +8,9 @@ var tags =
         h5: '#####',
         h6: '######'
     },
-
+    
     lists: {
-        unordered: '(*|+|-)'
+        ordered: /^\d+\.\s|\t/,
+        unordered: /[*.-]/
     }
 };
