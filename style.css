@@ -10,8 +10,25 @@ div#wrapper
 	margin: 0 auto;
 }
 
-textarea
+textarea#markdown, div#html
 {
-	height: 50em;
+	position: fixed;
+}
+
+textarea#markdown
+{
+	top: 5em;
+	left: 2em;
 	width: 45%;
+	height: 500px;
+	display: inline;
+}
+
+div#html
+{
+	top: 4.25em;
+	right: 2em;
+	width: 45%;
+	height: 504px;
+	background-color: lightblue;
 }
