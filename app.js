@@ -34,3 +34,20 @@ app.get('/users', user.list);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+// Collaboration
+
+var io = require('socket.io').listen(8080);
+
+io.sockets.on('connection', function (socket) {
+  io.sockets.emit('this', { will: 'be received by everyone'});
+
+  socket.on('private message', function (from, msg) {
+    console.log('I received a private message by ', from, ' saying ', msg);
+  });
+
+  socket.on('disconnect', function () {
+    io.sockets.emit('user disconnected');
+  });
+});
+
