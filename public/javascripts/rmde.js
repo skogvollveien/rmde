@@ -8,7 +8,7 @@ var rmde =
 
     init: function ()
     {
-        $('#markdown').bind('input propertychange', this.parseAndUpdate)
+        //$('#markdown').bind('input propertychange', this.parseAndUpdate)
         console.log("bound");
     },
 

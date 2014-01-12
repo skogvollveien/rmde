@@ -32,3 +32,12 @@ div#html
     height: 504px;
     background-color: lightblue;
 }
+div#chat
+{
+    position: fixed;
+    width: 90%;
+    height: 300px;
+    top: 600px;
+    background: #FFFFFF;
+    border: 1px solid black;
+}

@@ -45,35 +45,34 @@ var documents = ['welcomedoc'];
 
 io.sockets.on('connection', function (socket) {
 
-    socket.on('adduser', function(username){
+    socket.on('adduser', function (username) {
         socket.username = username;
         socket.doc = 'welcomedoc';
         users[username] = username;
-        socket.join('welcomedoc');
+        socket.join(documents[0]);
         socket.emit('updatechat', 'SERVER', 'you have connected to the welcomedoc');
-        socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
-        socket.emit('updaterooms', rooms, 'room1');
+        socket.broadcast.to(socket.doc).emit('updatechat', 'SERVER', username + ' has connected to this room');
     });
 
-    socket.on('sendchat', function (data) {
-        io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+    socket.on('sendChat', function (data) {
+        io.sockets.in(socket.room).emit('updateChat', socket.username, data);
     });
 
-    socket.on('sendupdate', function(data){
-
+    socket.on('sendUpdate', function (data) {
+        console.log();
+        io.sockets.in(socket.room).emit('updateDocument', socket.username, data);
     });
 
-    socket.on('switchRoom', function(newroom){
+    socket.on('switchRoom', function (newdoc) {
         socket.leave(socket.room);
-        socket.join(newroom);
-        socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
-        socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.username+' has left this room');
-        socket.room = newroom;
-        socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
-        socket.emit('updaterooms', rooms, newroom);
+        socket.join(newdoc);
+        socket.emit('updatechat', 'SERVER', 'you have connected to ' + newdoc);
+        socket.broadcast.to(socket.doc).emit('updatechat', 'SERVER', socket.username + ' has left this room');
+        socket.doc = newdoc;
+        socket.broadcast.to(newdoc).emit('updatechat', 'SERVER', socket.username + ' has joined this room');
     });
 
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function () {
         delete usernames[socket.username];
         io.sockets.emit('updateusers', usernames);
         socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
