@@ -33,6 +33,21 @@ var rmde =
             var output = -1; // no match
 
             // Check for headings.
+            output = checkForHeading(line);
+            output = checkForOrderedList(line);
+
+            if (output === -1)
+            {
+                output = line;
+            }
+
+            appendToHTML(output)
+        }
+
+        function checkForHeading(line)
+        {
+            var output = -1; // no match
+
             for (var tag in tags.headings)
             {
                 if (Object.prototype.hasOwnProperty.call(tags.headings, tag))
@@ -44,12 +59,19 @@ var rmde =
                 }
             }
 
-            if (output === -1)
+            return output;
+        }
+
+        function checkForOrderedList(line)
+        {
+            var output = -1;
+
+            if (tags.lists.ordered.test(line))
             {
-                output = line;
+                output = '<li>' + line + '</li>';
             }
 
-            appendToHTML(output)
+            return output;
         }
 
         function appendToHTML(data)
